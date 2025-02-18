@@ -32,7 +32,7 @@ jobs:
           echo "The repo ${{ github.repository }} contains:"
           tree
       - name: Build Ariwete (from cloud-samples-tools)
-        run: go build -a -v -o ../bin ./...
+        run: go build -o ../bin -v ./...
         working-directory: cloud-samples-tools/ariwete
       - name: List files in directory
         run: |
