@@ -1,4 +1,4 @@
-name: CI
+name: CI (test)
 on:
   push:
     branches:
@@ -29,7 +29,7 @@ jobs:
           echo "The repo ${{ github.repository }} contains:"
           tree
       - name: Build Ariwete
-        run: go build -a -v -o . ./cmd/...
+        run: go build -a -v -o . .ariwete/cmd/...
         working-directory: cloud-samples-tools
       - name: run ariwete binary to see if it was built
         run: ./cloud-samples-tools/ariwete
