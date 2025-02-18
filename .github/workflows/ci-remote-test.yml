@@ -24,13 +24,16 @@ jobs:
       - uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5
         with:
           go-version: ${{ env.GO_VERSION }}
+      - name: create bin directory for tools binaries
+        run: mkdir bin
+        working-directory: cloud-samples-tools
+      - name: Build Ariwete
+        run: go build -a -v -o ../bin ./...
+        working-directory: cloud-samples-tools
       - name: List files in directory
         run: |
           echo "The repo ${{ github.repository }} contains:"
           tree
-      - name: Build Ariwete
-        run: go build -a -v -o . ./ariwete/cmd/...
-        working-directory: cloud-samples-tools
       - name: run ariwete binary to see if it was built
         run: ./cloud-samples-tools/ariwete
       - name: Get diffs
