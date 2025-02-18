@@ -1,0 +1,39 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  
+env:
+  GO_VERSION: ^1.22.0
+
+jobs:
+  affected:
+    name: Finding affected tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          repository: GoogleCloudPlatform/cloud-samples-tools
+          path: cloud-samples-tools
+      - uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - run: echo go build -o ${{ github.workspace }}/. ./cmd/...
+        working-directory: /cloud-samples-tools
+      - name: run ariwete binary to see if it was built
+        run: /cloud-samples-tools/ariwete
+      - name: Get diffs
+        run: git --no-pager diff --name-only HEAD origin/main | tee diffs.txt
+#      - name: Find Node.js affected packages
+#        id: nodejs
+#        run: |
+#          echo "paths=$(./cloud-samples-tools/ariwete affected .github/config/nodejs-prod.jsonc diffs.txt paths.txt)" >> $GITHUB_OUTPUT
+#          cat paths.txt
+#          echo "setups=$(./cloud-samples-tools/ariwete .github/config/nodejs-prod.jsonc paths.txt)" >> $GITHUB_OUTPUT
+
