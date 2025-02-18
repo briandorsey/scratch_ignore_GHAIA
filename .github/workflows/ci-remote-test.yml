@@ -27,9 +27,13 @@ jobs:
       - name: create bin directory for tools binaries
         run: mkdir bin
         working-directory: cloud-samples-tools
+      - name: List files in directory
+        run: |
+          echo "The repo ${{ github.repository }} contains:"
+          tree
       - name: Build Ariwete
         run: go build -a -v -o ../bin ./...
-        working-directory: cloud-samples-tools
+        working-directory: cloud-samples-tools/ariwete
       - name: List files in directory
         run: |
           echo "The repo ${{ github.repository }} contains:"
