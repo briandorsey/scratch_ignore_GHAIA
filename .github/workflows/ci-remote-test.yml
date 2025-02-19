@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/checkout@v4
         with:
-          repository: GoogleCloudPlatform/cloud-samples-tools@0.1.0
+          repository: GoogleCloudPlatform/cloud-samples-tools@v0.1.0
           path: cloud-samples-tools
       - uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5
         with:
